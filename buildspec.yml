@@ -1,0 +1,43 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # - mkdir -p ~/aws_cli_layer ~/aws_cli_layer/bin
+      # - cd ~/aws_cli_layer
+      # # wget もしくは curl いづれかのコマンドで AWS CLI のインストールファイルをダウンロードします。
+      # - wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+      # - curl -O https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+      # # ファイルを解凍します。
+      # - unzip awscli-exe-linux-x86_64.zip
+      # # 作業用ディレクトリにインストールします。
+      # - ./aws/install -i ~/aws_cli_layer/aws-cli -b ~/aws_cli_layer/aws-bin
+      # - # aws コマンドのバイナリーファイルなどが入ったディレクトリの中身を全てコピーします。
+      # - cp -r ./aws-cli/v2/current/dist/* ./bin
+      # - mkdir bin aws_cli
+      # - cd bin
+      # - curl -Lo jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+      # - chmod 755 jq 
+      # - cd ../
+      # - cp -p /usr/bin/zip bin
+      # - cp -p /usr/bin/unzip bin
+      # - cd aws_cli
+      # - curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
+      # - unzip awscliv2.zip
+      # - ./aws/install -i ./aws-cli
+      # - ls -lR ./aws-cli
+      # - cp -r ./aws-cli/v2/*/dist/* ../bin
+      - mkdir awscli-virtualenv
+      - python3 -m venv awscli-virtualenv
+      - cd awscli-virtualenv/bin/
+      - source activate
+      - pip install awscli
+      - deactivate
+      - cd ../..
+      - mkdir awscli-lambda-layer
+      - cd awscli-lambda-layer
+      - cp ../awscli-virtualenv/bin/aws .
+      - cp -r ../awscli-virtualenv/lib/python3.7/site-packages/* .
+artifacts:
+  files:
+    - 'bin/*'

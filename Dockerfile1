@@ -1,0 +1,3 @@
+FROM amazonlinux:2
+RUN yum install -y awscli zip unzip jq util-linux which
+VOLUME ["~/Desktop/git/lambda-custom-runtime/hoge"]
